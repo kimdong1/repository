@@ -18,6 +18,9 @@
 	<update id="updatePassword" parameterType="java.util.HashMap">
 		update member set password=#{password} where email=#{email} 
 	</update>
+	<update id="updatePhone" parameterType="java.util.HashMap">
+		update member set phone=#{phone} where email=#{email} 
+	</update>
 	
 	
 	

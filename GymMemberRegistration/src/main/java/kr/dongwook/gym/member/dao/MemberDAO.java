@@ -10,5 +10,6 @@ public interface MemberDAO {
 	public MemberVO selectByPhone(HashMap<String, String> map);
 	public MemberVO selectByPassword(HashMap<String, String> map);
 	public void updatePassword(HashMap<String, String> map);
+	public void updatePhone(HashMap<String, String> map);
 	
 }

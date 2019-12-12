@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,8 +35,20 @@
 			<td><a href="${pageContext.request.contextPath }/member/passwordChange" >비밀번호 변경하기</a></td>
 		</tr>
 		<tr>
-			<td style="font-weight: bold;">전화번호&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
-			<td><a href="" >핸드폰번호 변경하기</a></td>
+			<td style="font-weight: bold;" colspan="2">
+				전화번호&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+				
+				<c:set var="phone" value="${sessionScope.vo.phone }"></c:set>
+				<c:if test="${fn:length(phone) == 13 }">
+					${fn:substring(phone,0,9) }****
+				</c:if> 
+				<c:if test="${fn:length(phone) != 13 }">
+					${fn:substring(phone,0,8) }****
+				</c:if> 
+				
+				
+				<br /><br /><a href="${pageContext.request.contextPath }/member/phoneChange" >핸드폰번호 변경하기</a>
+			</td>
 		</tr>
 	</table>
 	<table>
