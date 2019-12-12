@@ -58,21 +58,29 @@
       	});
 	}
 	
+	function formCheck(){
+		var title = $("#title").val();
+		if(title.trim().length==0){
+			alert('제목은 반드시 입력하셔야합니다');
+			return false;
+		}
+		return true;
+	}
 </script>
 </head>
 <body>
 	<jsp:include page="include.jsp" flush="false"></jsp:include>
 	<c:if test="${not empty sessionScope.vo }">
-		<form action="${pageContext.request.contextPath }/QnA/writeOk" method="post">
+		<form action="${pageContext.request.contextPath }/QnA/writeOk" method="post" id="form" onsubmit="return formCheck();">
 			<table style="margin: auto;">
 				<tr>
 					<td>
-						<input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력하세요"/>	
+						<input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력하세요" required="required"/>	
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<textarea name="content" id="content"></textarea>
+						<textarea name="content" id="content" required="required"></textarea>
 					</td>
 				</tr>
 				<tr>

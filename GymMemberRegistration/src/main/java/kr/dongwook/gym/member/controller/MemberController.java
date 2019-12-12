@@ -4,6 +4,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
+import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -167,6 +168,27 @@ public class MemberController {
 	}
 	
 
+	@RequestMapping(value="/member/phoneChange")
+	public String phoneChange() {
+		return "member/phoneChange";
+	}
+	
+	@RequestMapping(value="/member/phoneChangeOk",method=RequestMethod.GET)
+	public String phoneChangeOkGET() {
+		return "membership/error";
+	}
+	
+	@RequestMapping(value="/member/phoneChangeOk",method=RequestMethod.POST)
+	public String phoneChangeOkPOST(@ModelAttribute MemberVO vo,HttpServletRequest request,String phone) {
+		memberService.updatePhone(vo.getEmail(), vo.getPhone());
+		MemberVO beforeVO = (MemberVO) request.getSession().getAttribute("vo");
+		vo = beforeVO;
+		vo.setPhone(phone);
+		request.getSession().setAttribute("vo", vo);
+		System.out.println(vo);
+		return "redirect:/member/myPage";
+	}
+	
 	@RequestMapping(value="/membership/board")
 	public String membershipBoard(Model model) {
 		List<MembershipVO> list = membershipService.selectAll();

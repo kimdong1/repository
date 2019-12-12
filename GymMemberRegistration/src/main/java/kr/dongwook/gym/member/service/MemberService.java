@@ -188,6 +188,19 @@ public class MemberService {
 			memberDAO.updatePassword(map);
 		}
 	}	
+	public void updatePhone(String email, String newPhone) {
+		if(email!=null && newPhone != null) {
+			if (logger.isInfoEnabled()) {
+				logger.info("updatePhone(String, String)- newPhone=" + newPhone); //$NON-NLS-1$
+			}
+
+			HashMap<String, String> map = new HashMap<String, String>();
+			map.put("email", email);
+			map.put("phone", newPhone);
+			
+			memberDAO.updatePhone(map);
+		}
+	}	
 	
 	
 	

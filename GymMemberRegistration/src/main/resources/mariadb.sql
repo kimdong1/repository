@@ -14,11 +14,9 @@ insert into member (email,phone,password,username,lev,gender)
 	values ('hi_manse@naver.com','010-8766-5193','123!@#qwe','운영자',2,'male');
 /* 일반회원 계정 */
 insert into member (email,phone,password,username,lev,gender) 
-	values ('slasnrndu@gmail.com','010-8766-5193','123!@#qwe','회원',0,'female');
+	values ('slasnrndu@gmail.com','010-123-5193','123!@#qwe','회원',0,'female');
 insert into member (email,phone,password,username,lev,gender) 
-	values ('luckyguytrg@naver.com','010-8766-5193','123!@#qwe','회원',0,'male');
-
-
+	values ('luckyguytrg@naver.com','010-1234-5193','123!@#qwe','회원',0,'male');
 DROP TABLE membership;
 CREATE TABLE membership(
     idx         int           primary key auto_increment, 
