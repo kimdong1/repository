@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<!-- XML과 JSON출력을 지원한다. -->
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<ref bean="jsonMessageConverter" />
+				<ref bean="xmlMessageConverter" />
+			</list>
+		</property>
+	</bean>
+	<bean id="jsonMessageConverter" class="org.springframework.http.converter.json.GsonHttpMessageConverter">
+	</bean>
+
+	<bean id="xmlMessageConverter" class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
+	</bean>
+	
+	<!-- 프로퍼티파일 사용 등록 -->
+	<context:property-placeholder location="classpath:db.properties" />
+
+	<!-- <context:property-placeholder location="/WEB-INF/*.properties" /> -->
+
+	<!-- 애플리케이션이 실행될때 자동으로 실행시키고 싶은 쿼리 지정!!! 
+	-->
+	<jdbc:initialize-database data-source="dataSource"> 
+		<jdbc:script location="classpath:mariadb.sql"/> 
+	</jdbc:initialize-database> 
+	
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+
+	<!-- dataSource 설정 -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${m.driver}" />
+		<property name="url" value="${m.url}" />
+		<property name="username" value="${m.username}" />
+		<property name="password" value="${m.password}" />
+	</bean>
+		
+		
+	<!-- mybatis추가 -->
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<!-- 아래부분은 매핑할 xml파일이 있는 패키지경로를 설정한다. -->
+		<property name="typeAliasesPackage" value="kr.dongwook.gym.member.vo" />
+		<property name="mapperLocations" value="classpath:/kr/dongwook/gym/member/dao/*.xml"/> 
+	</bean>
+	<!-- scan for mappers and let them be autowired -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="kr.dongwook.gym.member.dao" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+	</bean>
+	<!-- 
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	 -->
+	
+	<!-- 트랜젝션 관리자 추가 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<!-- ****************** 메일 보내기 빈 등록 시작 ************************** -->
+	<!-- 메일센더가 사용할 프로퍼티 등록 -->
+	<util:properties id="properties">
+		<prop key="mail.smtp.starttls.enable">true</prop>
+		<prop key="mail.smtp.auth">true</prop>
+		<prop key="mail.transport.protocol">smtp</prop>
+		<prop key="mail.debug">true</prop>
+	</util:properties>	
+	<!-- 메일 보내는 객체 등록 -->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl"> 
+		<property name="host" value="smtp.gmail.com"/> 
+		<property name="port" value="587"/> 
+		<property name="username" value="sungnam201908@gmail.com"/> 
+		<property name="password" value="woaldjqtek2"/> 
+		<property name="javaMailProperties" ref="properties"/> 
+	</bean>
+	<!-- ****************** 메일 보내기 빈 등록 종료 ************************** -->
+	
+	
+	
+	
+	
+</beans>

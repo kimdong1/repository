@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.dongwook.gym.member.dao.MembershipFileDAO">
+	<insert id="insert" parameterType="MembershipFileVO">
+		insert into membership_file (ref,ofile,sfile) values (#{ref},#{ofile},#{sfile})
+	</insert>
+
+	<!-- 1개 삭제 -->
+	<delete id="deleteByRef" parameterType="int">
+		delete from membership_file where ref=#{idx}
+	</delete>
+
+	<!-- 갯수 -->
+	<select id="selectCountByRef" parameterType="int" resultType="int">
+		select count(*) from membership_file where ref=#{ref}
+	</select>
+
+	<!-- ref가 같은 모든파일 1개얻기 -->
+	<select id="selectByRef" parameterType="int" resultType="MembershipFileVO">
+		select * from membership_file where ref=#{ref}
+	</select>
+
+	<select id="selectFileAll" resultType="MembershipFileVO">
+		select * from membership_file order by ref desc
+	</select>
+	
+	<update id="update" parameterType="MembershipFileVO">
+		update membership_file set ofile=#{ofile}, sfile=#{sfile} where ref=#{ref}
+	</update>
+	
+	
+</mapper>

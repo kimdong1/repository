@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.dongwook.gym.member.dao.MemberDAO">
+	<insert id="insert" parameterType="MemberVO">
+		insert into member (email,phone,password,username,lev,gender) 
+				values (#{email},#{phone},#{password},#{username},0,#{gender})
+	</insert>
+	<select id="selectByEmail" parameterType="java.util.HashMap" resultType="MemberVO">
+		select * from member where email=#{email}
+	</select>
+	<select id="selectByPhone" parameterType="java.util.HashMap" resultType="MemberVO">
+		select * from member where phone=#{phone} and username=#{username}
+	</select>
+	<select id="selectByPassword" parameterType="java.util.HashMap" resultType="MemberVO">
+		select * from member where email=#{email} and phone=#{phone}
+	</select>
+	<update id="updatePassword" parameterType="java.util.HashMap">
+		update member set password=#{password} where email=#{email} 
+	</update>
+	
+	
+	
+	
+</mapper>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.dongwook.gym.member.dao.MembershipDAO">
+	<select id="selectCount" resultType="int">
+		select count(*) from membership
+	</select>
+	
+	<select id="selectByIdx" parameterType="int" resultType="MembershipVO">
+		select * from membership where idx=#{idx}
+	</select>
+
+	<!-- 모두 얻기 -->
+	<select id="selectAll" resultType="MembershipVO">
+		select * from membership order by idx desc
+	</select>
+	
+	<insert id="insert" parameterType="MembershipVO">
+		insert into membership (products, content, price, lev) values (#{products}, #{content}, #{price}, #{lev}) 
+	</insert>
+	
+<!-- 	<update id="update" parameterType="MembershipVO">
+		update membership set subject=#{subject}, content=#{content}, regDate=now(), ip=#{ip} where idx=#{idx}
+	</update> -->
+	
+	<delete id="delete" parameterType="int">
+		delete from membership where idx=#{idx}
+	</delete>
+	
+	<select id="selectLastIdx"  resultType="int">
+		select max(idx) from membership
+	</select>
+	
+	
+	<update id="update" parameterType="MembershipVO">
+		update membership set products=#{products}, content=#{content}, price=#{price}, regdate=now() where idx=#{idx}
+	</update>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</mapper>
