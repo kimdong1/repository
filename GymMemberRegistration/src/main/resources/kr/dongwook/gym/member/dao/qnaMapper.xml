@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.dongwook.gym.member.dao.QnADAO">
+	
+	<select id="selectCount" resultType="int">
+		select count(*) from qna
+	</select>
+	
+	<insert id="insertQnA" parameterType="QnAVO">
+		insert into qna (id, title, content, lev) values(#{id}, #{title}, #{content}, #{lev})
+	</insert>
+	
+	<select id="selectList" parameterType="java.util.HashMap" resultType="QnAVO">
+		select * from qna order by idx desc limit #{startNo},#{pageSize}
+	</select>
+	
+	<select id="selectByIdx" parameterType="int" resultType="QnAVO">
+		select * from qna where idx=#{idx}
+	</select>
+	
+	<delete id="delete" parameterType="int">
+		delete from qna where idx=#{idx}
+	</delete>	
+	
+	
+	
+</mapper>

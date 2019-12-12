@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.dongwook.gym.member.dao.QnACommentDAO">
+	
+	<insert id="insertComment" parameterType="QnACommentVO" >
+		insert into qna_comment (ref, id, content, lev) values(#{ref}, #{id}, #{content}, 2)
+	</insert>
+	
+	<select id="selectByRef" parameterType="int" resultType="QnACommentVO">
+		select * from qna_comment where ref=#{ref}
+	</select>
+	
+	<delete id="delete" parameterType="java.util.HashMap">
+		delete from qna_comment where ref=#{ref} and idx=#{idx}
+	</delete>
+	
+	<update id="update" parameterType="QnACommentVO">
+		update qna_comment set content=#{content},regdate=#{regdate} where ref=#{ref} and idx=#{idx}
+	</update>
+	
+</mapper>
