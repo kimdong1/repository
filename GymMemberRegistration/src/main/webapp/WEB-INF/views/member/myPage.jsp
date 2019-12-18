@@ -59,7 +59,7 @@
 			<td style="font-weight: bold;"><br />내가 올린 게시물 확인 및 삭제 가능</td>
 		</tr>
 		<tr>
-			<td><a href="" class="btn btn-secondary">확인하기</a></td>
+			<td><a href="${pageContext.request.contextPath }/member/myBoard" class="btn btn-secondary">확인하기</a></td>
 		</tr>
 	</table>
 

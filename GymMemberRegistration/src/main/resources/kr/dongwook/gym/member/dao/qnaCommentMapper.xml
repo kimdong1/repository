@@ -19,4 +19,8 @@
 		update qna_comment set content=#{content},regdate=#{regdate} where ref=#{ref} and idx=#{idx}
 	</update>
 	
+	<select id="selectCommentAll" resultType="QnACommentVO">
+		select * from qna_comment
+	</select>
+	
 </mapper>

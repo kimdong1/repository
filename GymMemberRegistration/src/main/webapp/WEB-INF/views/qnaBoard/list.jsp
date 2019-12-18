@@ -23,13 +23,15 @@
 	<jsp:include page="include.jsp" flush="false"></jsp:include>
 	<table class="table" style="width: 1000px; margin: auto;">
 		<thead class="thead-dark">
-			<tr>
-				<td align="right" colspan="3" style="border: none;">
-					<button type="button"
-						onclick='sendPost("${pageContext.request.contextPath}/QnA/write",{"p":${currentPage },"b":${blockSize },"s":${pageSize }});'
-						class="btn btn-primary">질문하기</button>
-				</td>
-			</tr>
+			<c:if test="${sessionScope.vo.lev != 2 }">
+				<tr>
+					<td align="right" colspan="3" style="border: none;">
+						<button type="button"
+							onclick='sendPost("${pageContext.request.contextPath}/QnA/write",{"p":${currentPage },"b":${blockSize },"s":${pageSize }});'
+							class="btn btn-primary">질문하기</button>
+					</td>
+				</tr>
+			</c:if>
 			<tr>
 				<th scope="col">글번호</th>
 				<th scope="col" width="60%">제목</th>

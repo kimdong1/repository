@@ -46,4 +46,7 @@ public class QnACommentService {
 		qnaCommentDAO.update(commentVO);
 	}
 	
+	public List<QnACommentVO> selectCommentAll() {
+		return qnaCommentDAO.selectCommentAll();
+	}
 }

@@ -10,4 +10,5 @@ public interface QnACommentDAO {
 	public List<QnACommentVO> selectByRef(int ref);
 	public void delete(HashMap<String, Integer> map);
 	public void update(QnACommentVO commentVO);
+	public List<QnACommentVO> selectCommentAll();
 }

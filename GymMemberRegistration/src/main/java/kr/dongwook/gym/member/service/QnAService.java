@@ -46,4 +46,14 @@ public class QnAService {
 	public void delete(int idx) {
 		qnaDAO.delete(idx);
 	}
+	
+	public List<QnAVO> selectMyBoard(String id) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("id", id);
+		List<QnAVO> list = qnaDAO.selectMyBoard(map);
+		return list;
+	}
+	
+	
+	
 }
