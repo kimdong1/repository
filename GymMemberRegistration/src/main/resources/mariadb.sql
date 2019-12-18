@@ -177,7 +177,6 @@ insert into membership (products,content,price,lev) values ('홍대서교 짐티
 
 ',1000000,2);
 insert into membership_file (ref,ofile,sfile) values (4,'홍대서교 짐티피 1호점.jpg','홍대서교 짐티피 1호점.jpg');
-
 DROP TABLE qna;
 CREATE TABLE qna(
     idx         int           primary key auto_increment, 
@@ -187,7 +186,6 @@ CREATE TABLE qna(
     lev         int(1)       , 
     regdate     TIMESTAMP        default now() 
 );
-
 DROP TABLE qna_comment;
 CREATE TABLE qna_comment(
     idx         int           primary key auto_increment, 

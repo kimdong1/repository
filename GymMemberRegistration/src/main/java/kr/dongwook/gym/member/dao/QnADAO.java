@@ -11,4 +11,5 @@ public interface QnADAO {
 	public List<QnAVO> selectList(HashMap<String, Integer> map);
 	public QnAVO selectByIdx(int idx);
 	public void delete(int idx);
+	public List<QnAVO> selectMyBoard(HashMap<String, String> map);
 }

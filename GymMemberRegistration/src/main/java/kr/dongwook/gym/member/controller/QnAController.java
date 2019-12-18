@@ -146,7 +146,7 @@ public class QnAController {
 		return "qnaBoard/view";
 	}
 	@Transactional
-	@RequestMapping(value="/QnA/delete")
+	@RequestMapping(value="/QnA/delete",method=RequestMethod.POST)
 	public String delete(int idx,HttpServletRequest request) {
 		QnAVO vo = qnaService.selectByIdx(idx);
 		// 서버에 존재하던 파일 삭제
@@ -221,8 +221,6 @@ public class QnAController {
 		System.out.println(map);
 		return "redirect:/QnA/view";
 	}
-	
-	
 	
 	
 }

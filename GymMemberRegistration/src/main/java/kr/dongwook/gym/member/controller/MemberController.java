@@ -17,9 +17,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.dongwook.gym.member.service.MemberService;
 import kr.dongwook.gym.member.service.MembershipService;
+import kr.dongwook.gym.member.service.QnACommentService;
+import kr.dongwook.gym.member.service.QnAService;
 import kr.dongwook.gym.member.vo.MemberVO;
 import kr.dongwook.gym.member.vo.MembershipFileVO;
 import kr.dongwook.gym.member.vo.MembershipVO;
+import kr.dongwook.gym.member.vo.QnACommentVO;
+import kr.dongwook.gym.member.vo.QnAVO;
 
 @Controller
 public class MemberController {
@@ -34,6 +38,12 @@ public class MemberController {
 	
 	@Autowired
 	private MembershipService membershipService;
+	
+	@Autowired
+	private QnAService qnAService;
+
+	@Autowired
+	private QnACommentService qnACommentService;
 	
 	@RequestMapping(value="/member/join")
 	public String join() {
@@ -66,7 +76,6 @@ public class MemberController {
 	@RequestMapping(value="/member/loginOk", method=RequestMethod.POST)
 	public String loginOkPOST(@ModelAttribute MemberVO memberVO, HttpServletRequest request) {
 		MemberVO vo = memberService.loginOk(memberVO);
-		System.out.println(vo);
 		if(vo==null) {
 			return "redirect:login";
 		}
@@ -185,9 +194,23 @@ public class MemberController {
 		vo = beforeVO;
 		vo.setPhone(phone);
 		request.getSession().setAttribute("vo", vo);
-		System.out.println(vo);
 		return "redirect:/member/myPage";
 	}
+	
+	@RequestMapping(value="/member/myBoard")
+	public String myBoard(Model model,HttpServletRequest request) {
+		MemberVO vo = (MemberVO) request.getSession().getAttribute("vo");
+		if(vo.getLev() != 2) {
+			List<QnAVO> list = qnAService.selectMyBoard(vo.getEmail());
+			model.addAttribute("list",list);
+		}else if(vo.getLev() == 2) {
+			List<QnACommentVO> commentList = qnACommentService.selectCommentAll();
+			model.addAttribute("commentList",commentList);
+		}
+		
+		return "member/myBoard";
+	}
+	
 	
 	@RequestMapping(value="/membership/board")
 	public String membershipBoard(Model model) {
@@ -201,5 +224,6 @@ public class MemberController {
 	public String membershipWrite() {
 		return "membership/write";
 	}
+	
 	
 }

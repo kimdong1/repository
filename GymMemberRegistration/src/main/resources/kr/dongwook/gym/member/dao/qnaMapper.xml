@@ -23,6 +23,10 @@
 		delete from qna where idx=#{idx}
 	</delete>	
 	
+	<select id="selectMyBoard" parameterType="java.util.HashMap" resultType="QnAVO">
+		select * from qna where id=#{id}
+	</select>	
+	
 	
 	
 </mapper>
